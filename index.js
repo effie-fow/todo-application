@@ -21,6 +21,5 @@ function addToList() {
 
 
 
-
 todoButton.addEventListener("click", addToList);
 todoInput.addEventListener("input", setTodoValue);

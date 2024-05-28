@@ -1,0 +1,51 @@
+:root {
+  --primary-color: #175E98;
+  --secondary-color: #B28B84;
+  --terciary-color: #6BABFF;
+  --off-white: #FFFDF6;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--off-white);
+    font-size: 16px;
+}
+
+h1 {
+    color: var(--primary-color);
+    text-align: center;
+    margin: 20px auto 20px;
+    font-size: 3rem;
+}
+
+#todo-container {
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+#todo-input {
+    width: 83%;
+    margin-right: 4px;
+    font-size: 1.1rem;
+}
+
+#button-add {
+    width: 15%;
+    background-color: var(--secondary-color);
+    color: var(--off-white);
+    font-size: 1.1rem;
+    border: 0.5px solid black;
+    border-radius: 7px;
+    padding: 3px;
+}
+
+#button-add:active {
+    background-color: var(--terciary-color);
+}
