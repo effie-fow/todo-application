@@ -21,6 +21,11 @@ h1 {
     font-size: 3rem;
 }
 
+p {
+    font-size: 1.2rem;
+}
+
+
 #todo-container {
     width: 100%;
     padding: 10px;
@@ -36,6 +41,11 @@ h1 {
     font-size: 1.1rem;
 }
 
+#todo-list-active {
+    width: 100%;
+    border: 1px solid red;
+}
+
 #button-add {
     width: 15%;
     background-color: var(--secondary-color);
@@ -48,4 +58,13 @@ h1 {
 
 #button-add:active {
     background-color: var(--terciary-color);
+}
+
+
+.todo-item {
+    border: 1px solid green;
+    margin: 10px 5px;
+    display: flex;
+    flex-flow: row wrap;
+    gap: 5px;
 }
