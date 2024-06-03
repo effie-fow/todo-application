@@ -11,6 +11,12 @@ function setTodoValue(event) {
     todoInput.value = todoInputValue;
 };
 
+// NEW FUNCTION GENERATES UNIQUE ID FOR NEWEST INPUT (CALLED IN newListItem())
+function generateUniqueID() {
+    let listNumber = todoList.length;
+    const uniqueID = `Todo-item-${listNumber}`;
+    return uniqueID;
+}
 
 //NEW FUNCTION FOR ADDING MOST RECENT INPUT AS A .TODO-ITEM to #TODO-LIST-ACTIVE (CALLED IN addToList())
 function newListItem() {
@@ -20,11 +26,12 @@ function newListItem() {
 
     todoListActive.insertAdjacentHTML(
         "beforeend",
-        `<div class="todo-item">
-            <input type="checkbox" class="todo-checkbox"/>
+        `<div class="todo-item" id="todo-item">
+            <input type="checkbox" class="todo-checkbox" id="${generateUniqueID()}"/>
             <p>${todoList[newestInput]}</p>
         </div>`
-    )
+    );
+
 };
 
 
