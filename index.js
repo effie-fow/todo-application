@@ -3,11 +3,12 @@ const todoInput = document.getElementById("todo-input");
 const todoListActive = document.getElementById("todo-list-active")
 const todoListDone = document.getElementById("todo-list-done");
 
+todoButton.addEventListener("click", addToList);
+todoInput.addEventListener("input", setTodoValue);
+
 
 let todoInputValue = "";
 let todoList = [];
-
-
 
 function setTodoValue(event) {
     todoInputValue = event.target.value;
@@ -16,50 +17,48 @@ function setTodoValue(event) {
 
 // NEW FUNCTION GENERATES UNIQUE ID FOR NEWEST INPUT (CALLED IN newListItem())
 function generateUniqueID() {
-    let listNumber = todoList.length;
+    let listNumber = todoList.length + 1;
     const uniqueID = `${listNumber}`;
     return uniqueID;
 }
 
 //NEW FUNCTION FOR ADDING MOST RECENT INPUT AS A .TODO-ITEM to #TODO-LIST-ACTIVE (CALLED IN addToList())
-function newListItem() {
-    let newestInputIndex = todoList.length -1 ;
-    let newestInputStr = todoList[newestInputIndex];
-    
-    console.log(newestInputIndex);
-    console.log(newestInputStr);
+function generateList() {
+    todoListActive.innerHTML = "";
+    todoList.forEach(function(listItem) {
+        todoListActive.insertAdjacentHTML(
+            "beforeend",
+            `<div class="todo-item" id="${listItem.id}">
+                <input type="checkbox" class="todo-checkbox" id="checkbox-${listItem.id}" ${listItem.checked ? "checked" : ""}/>
+                <p id="todo-item-${listItem.id}">${listItem.value}</p>
+                <button onclick="deleteTask(this)" type="button">X</button>
+            </div>`
+        );
+    }); 
+};
 
-    todoListActive.insertAdjacentHTML(
-        "beforeend",
-        `<div class="todo-item" id="todo-item-container-${generateUniqueID()}">
-            <input type="checkbox" class="todo-checkbox" id="checkbox-${generateUniqueID()}"/>
-            <p id="todo-item-${generateUniqueID()}">${newestInputStr}</p>
-        </div>`
-    );
+const deleteTask = (buttonEl) => {
+    const itemToDelete = todoList.find((item) => item.id === buttonEl.parentElement.id);
+    todoList = todoList.filter((item) => item.id !== itemToDelete.id);
+    generateList();
+}
 
-    // WITHIN FUNCTION - ADDS AN "INVISBLE" COPY OF LIST ITEM IN "DONE" LIST
-    let newestInputStrCopy = [...newestInputStr].join("");
-
-    todoListDone.insertAdjacentHTML(
-        "beforeend",
-        `<div class="todo-item-done invisible" id="todo-item-container-${generateUniqueID()}-done">
-        <input type="checkbox" class="todo-checkbox-done" id="checkbox-${generateUniqueID()}-done" checked/>
-        <p id="todo-item-${generateUniqueID()}-done">${newestInputStrCopy}</p>
-        </div>`
-    )
+function createTodoListItem(todoValue) {
+    return {
+        id: generateUniqueID(),
+        value: todoValue,
+        checked: false
+    }
 };
 
 
 function addToList() {
-    todoList.push(todoInputValue);
+    const item = createTodoListItem(todoInputValue)
+    todoList.push(item);
     todoInput.value = "";
     console.log(todoList);
-    newListItem();
+    generateList();
 }
-
-
-todoButton.addEventListener("click", addToList);
-todoInput.addEventListener("input", setTodoValue);
 
 
 /*TESTING - FUNCTION TO REMOVE "INVISIBLE" CLASS, MAKING ELEMENT VISIBLE. 
